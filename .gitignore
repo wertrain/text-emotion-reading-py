@@ -1,6 +1,10 @@
 # Project resources
 resources/
 
+# Third party
+japanese_wordnet_affect.py
+jpn-asynset.xml
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
