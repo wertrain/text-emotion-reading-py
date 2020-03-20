@@ -1,3 +1,6 @@
+import os
+os.environ['MECABRC'] = r'.\venv\Scripts\etc\mecabrc'
+
 from mlask import MLAsk
 import pprint
 
