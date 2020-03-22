@@ -42,3 +42,7 @@ body {
     margin-bottom: 10px;
   }
 }
+
+.text-samples > .btn {
+  margin-right: 3px;
+}

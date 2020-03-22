@@ -1,81 +1,47 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>テキスト感情解析＠テスト環境</title>
-    <link rel="stylesheet" type="text/css" href="/static/style.css">
-    <link rel="stylesheet" type="text/css" href="/static/vendor/css/bootstrap.rin.min.css">
-  </head>
+{% extends "base.html" %}
+{% block body %}
+<main role="main" class="container">
+  <h1><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span> 入力された文章の感情を判定</h1>
+  <p>入力された文章から感情を読み取ります。</p>
+  <p class="bs-component text-samples">
+    サンプル：
+    <button type="button" class="btn btn-outline-primary" onclick='setSampleText(1)')>走れメロス</button>
+    <button type="button" class="btn btn-outline-primary" onclick='setSampleText(2)')>檸檬</button>
+    <button type="button" class="btn btn-outline-primary" onclick='setSampleText(3)')>ニュース記事</button>
+    <button type="button" class="btn btn-outline-primary" onclick='setSampleText(4)')>レストランのレビュー</button>
+    <button type="button" class="btn btn-outline-primary" onclick='setSampleText(5)')>否定語</button>
+  </p>
 
-  <body>
-    <div class="bs-component">
-      <nav class="navbar navbar-inverse">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/">テキスト感情解析</a>
-          </div>
+  <form method="post" action="{{ url_for('analysis') }}">
+    <div class="form-group">
+      <textarea class="form-control" rows="6" name="text" id="input-textarea"></textarea>
+    </div>
+    <button class="btn btn-primary ">感情を読み取り</button>
+  </form>
+</main><!-- /.container -->
+{% endblock %}
 
-
-          <!--
-          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
-            <ul class="nav navbar-nav">
-              <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-              <li><a href="#">Link</a></li>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                <ul class="dropdown-menu" role="menu">
-                  <li><a href="#">Kousaka Honoka</a></li>
-                  <li><a href="#">Minami Kotori</a></li>
-                  <li><a href="#">Sonoda Umi</a></li>
-                  <li class="divider"></li>
-                  <li><a href="#">Koizumi Hanayo</a></li>
-                  <li><a href="#">Hoshizora Rin</a></li>
-                  <li><a href="#">Nishikino Maki</a></li>
-                  <li class="divider"></li>
-                  <li><a href="#">Yazawa Nico</a></li>
-                  <li><a href="#">Ayase Eli</a></li>
-                  <li><a href="#">Tojo Nozomi</a></li>
-                </ul>
-              </li>
-            </ul>
-            <form class="navbar-form navbar-left" role="search">
-              <div class="form-group">
-                <input type="text" class="form-control" placeholder="Search">
-              </div>
-              <button type="submit" class="btn btn-default">Submit</button>
-            </form>
-            <ul class="nav navbar-nav navbar-right">
-              <li><a href="#">Link</a></li>
-            </ul>
-          </div>
-          -->
-        </div>
-      </nav>
-    </div><!-- /example -->
-
-    <main role="main" class="container">
-      <h1><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span> 入力された文章の感情を判定</h1>
-      <p>入力された文章から感情を読み取ります。</p>
-      <form>
-        <div class="form-group">
-          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-        </div>
-      </form>
-    </main><!-- /.container -->
-
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-    <script src="/static/vendor/js/bootstrap.min.js"></script>
-    <script type="text/javascript">
-      $('.bs-component [data-toggle="popover"]').popover();
-      $('.bs-component [data-toggle="tooltip"]').tooltip();
-    </script>
-  </body>
-</html>
+{% block script %}
+<script>
+function setSampleText(value){
+  let textarea = document.getElementById("input-textarea");
+  switch(value) {
+    case 1:
+      textarea.innerHTML = "メロスは激怒した。必ず、かの邪智暴虐の王を除かなければならぬと決意した。メロスには政治がわからぬ。メロスは、村の牧人である。笛を吹き、羊と遊んで暮して来た。けれども邪悪に対しては、人一倍に敏感であった。";
+      break;
+    case 2:
+      textarea.innerHTML = "えたいの知れない不吉な塊が私の心を始終圧おさえつけていた。焦躁と言おうか、嫌悪と言おうか――酒を飲んだあとに宿酔があるように、酒を毎日飲んでいると宿酔に相当した時期がやって来る。それが来たのだ。これはちょっといけなかった。結果した肺尖カタルや神経衰弱がいけないのではない。また背を焼くような借金などがいけないのではない。いけないのはその不吉な塊だ。";
+      break;
+    case 3:
+      textarea.innerHTML ="仕事に向かうという男性は「死亡者が出ているのにウイルス自体は全く目にみえない」と話し、感染に歯止めがかからないことへの恐怖感をつのらせていました。また、高齢の男性は「いつ終わるかわからないので不安だ。こんな状況は経験したこともない。戦争よりもひどい」と話し、先行きに懸念を示していました。"
+      break;
+    case 4:
+      textarea.innerHTML ="このお店は昭和っぽい懐かしい感じがする店構えで、地元の人なら知ってる有名なお店です。メニューはどれも味も見た目もよく、県外の有名人も来店するぐらいです。ボリュームも満点で、お腹いっぱいです。まだまだ、美味しそうなメニューがたくさんあったので、また食べに来たいです。"
+      break;
+    case 5:
+      textarea.innerHTML ="私は彼のことが嫌いではない！"
+      break;
+  }
+}
+</script>
+{% endblock %}
