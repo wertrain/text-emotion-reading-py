@@ -13,3 +13,7 @@ create venv
 setup MeCab
 
     text-emotion-reading-py\setup\setup.bat
+
+## Run
+
+    py main.py
