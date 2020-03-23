@@ -4,7 +4,7 @@ import pickle
 
 def create_emotion_score_dict():
     score_dict = {}
-    with open("emotion_score.csv", "r") as f:
+    with open("emotion_score_asynset.csv", "r") as f:
         data = csv.reader(f)
         next(data)
         for line in data:
