@@ -1,4 +1,6 @@
 import spacy
+import sys
+sys.path.append('../')
 
 nlp = spacy.load('ja_ginza')
 doc = nlp('彼のことが嫌いではない')
@@ -28,5 +30,14 @@ for sent in doc.sents:
       info_dict[".head.text"]     = token.head.text     # 係り受けの相手のテキスト
       result_list.append(info_dict)
 
-import pprint
-pprint.pprint (result_list)
+#import pprint
+#pprint.pprint (result_list)
+
+emotion_dict = {}
+emotion_dict["嫌い"] = [0,0,0]
+
+for sent in doc.sents:
+    for token in sent:
+      if emotion_dict.get(token.lemma_) != None:
+          for key in emotion_dict.get(token.lemma_):
+              print (key)
