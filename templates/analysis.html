@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block css %}
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" integrity="sha256-aa0xaJgmK/X74WM224KMQeNQC2xYKwlAt08oZqjeF0E=" crossorigin="anonymous" />
+<!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css" integrity="sha256-aa0xaJgmK/X74WM224KMQeNQC2xYKwlAt08oZqjeF0E=" crossorigin="anonymous" />-->
 <link href="https://emoji-css.afeld.me/emoji.css" rel="stylesheet">
 {% endblock %}
 
@@ -21,8 +21,7 @@
 {% endblock %}
 
 {% block script %}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" integrity="sha256-R4pqcOYV8lt7snxMQO/HSbVCFRPMdrhAFMH+vr9giYI=" crossorigin="anonymous"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.js" integrity="sha256-rjYnB0Bull7k2XkbJ03UNGqMuMieR769uQVGSSlsi6A=" crossorigin="anonymous"></script>
 <script>
 var ctx = document.getElementById("chart").getContext('2d');
 // 色の設定
@@ -67,7 +66,7 @@ var chart = new Chart(ctx, {
           fontColor: colorSet.green,
           beginAtZero: true,
           max: 1,
-          min: 0,
+          min: -0.2, // 最小値が 0 だとレーダーチャートの形がそれっぽくならないので底下げ
           stepSize: 0.5
         },
         gridLines: {
