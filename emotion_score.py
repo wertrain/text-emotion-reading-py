@@ -44,24 +44,35 @@ def calc_emotion_score(text):
 
     # 次に GiNZA による解析を行う
     nlp = spacy.load('ja_ginza')
+    # 解析した一文ごとに配列に格納
+    ginza_result_list = []
     for txt in text_list:
-        ginza_result = {}
         doc = nlp(txt)
+        # 結果はトークンのインデックスをキーとする辞書に格納
+        ginza_result = {}
         for sent in doc.sents:
             for token in sent:
                 ginza_result[token.i] = token
-                # 抜き出した単語が感情スコア付け辞書に存在するか
-                if emotion_dict.get(token.lemma_) != None:
-                    # 抜き出した単語は感情スコア付け辞書に存在していたが
-                    # 否定文なしで使われているかをチェックする
-                    if (_is_not_s(doc, token.lemma_ ) == True):
-                        continue
-                    # 単語は複数のカテゴリに設定されている場合がある
-                    for key in emotion_dict.get(token.lemma_):
-                        raw_score = emotion_score_dict.get(key)
-                        if raw_score != None:
-                            for i, v in enumerate(EMOTION_KEYS):
-                                scores[v] = scores.get(v, 0) + float(raw_score[i])
+        ginza_result_list.append(ginza_result)
+
+    # 解析結果を展開する
+    for ginza_result in ginza_result_list:
+        # 結果の辞書を展開する
+        for key in ginza_result:
+            # トークンの取り出し
+            token = ginza_result[key]
+            # 抜き出した単語が感情スコア付け辞書に存在するか
+            if emotion_dict.get(token.lemma_) != None:
+                # 抜き出した単語は感情スコア付け辞書に存在していたが
+                # 否定文なしで使われているかをチェックする
+                if (_is_not(ginza_result, token.lemma_ ) == True):
+                    continue
+                # 単語は複数のカテゴリに設定されている場合がある
+                for key in emotion_dict.get(token.lemma_):
+                    raw_score = emotion_score_dict.get(key)
+                    if raw_score != None:
+                        for i, v in enumerate(EMOTION_KEYS):
+                            scores[v] = scores.get(v, 0) + float(raw_score[i])
 
     # スコアの最大値を求める
     max_emotion_value, max_emotion_keys = get_max_emotion_score(scores)
@@ -88,19 +99,6 @@ def get_max_emotion_score(scores):
         elif (max_emotion_value > 0 and scores[key] == max_emotion_value):
             max_emotion_keys.append(key)
     return max_emotion_value, max_emotion_keys
-
-def _is_not_s(doc, word):
-    """係り受け情報から否定文になっているかを簡易的に判定
-    
-    Returns:
-        bool: 否定文になっている場合 True
-    """
-    for sent in doc.sents:
-        for token in sent:
-            if token.lemma_ == "無い" or token.lemma_ == "ない":
-                if token.head.text == word:
-                    return True
-    return False
 
 def _is_not(result, word):
     """係り受け情報から指定された単語が否定されているかを判定
