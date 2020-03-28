@@ -9,7 +9,8 @@
     <button type="button" class="btn btn-outline-primary" onclick='setSampleText(2)')>檸檬</button>
     <button type="button" class="btn btn-outline-primary" onclick='setSampleText(3)')>ニュース記事</button>
     <button type="button" class="btn btn-outline-primary" onclick='setSampleText(4)')>レストランのレビュー</button>
-    <button type="button" class="btn btn-outline-primary" onclick='setSampleText(5)')>否定語</button>
+    <button type="button" class="btn btn-outline-primary" onclick='setSampleText(5)')>否定語１</button>
+    <button type="button" class="btn btn-outline-primary" onclick='setSampleText(6)')>否定語２</button>
   </p>
 
   <form method="post" action="{{ url_for('analysis') }}">
@@ -39,7 +40,10 @@ function setSampleText(value){
       textarea.innerHTML ="このお店は昭和っぽい懐かしい感じがする店構えで、地元の人なら知ってる有名なお店です。メニューはどれも味も見た目もよく、県外の有名人も来店するぐらいです。ボリュームも満点で、お腹いっぱいです。まだまだ、美味しそうなメニューがたくさんあったので、また食べに来たいです。"
       break;
     case 5:
-      textarea.innerHTML ="私は彼のことが嫌いではない！"
+      textarea.innerHTML ="彼のことが好きではない"
+      break;
+    case 6:
+      textarea.innerHTML ="彼のことは嫌いではない！(;´Д`)"
       break;
   }
 }
