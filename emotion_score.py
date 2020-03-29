@@ -19,7 +19,7 @@ def calc_emotion_score(text):
     # 感情解析 MLAsk
     emotion_analyzer = MLAsk()
     # 感情を表す単語からカテゴリを取得できる辞書
-    emotion_dict = emotion_db.load_emotion_dict()
+    emotion_dict = emotion_db.create_emotion_dict()
     # カテゴリから感情スコアを取得できる辞書
     emotion_score_dict = emotion_db.create_emotion_score_dict()
 
