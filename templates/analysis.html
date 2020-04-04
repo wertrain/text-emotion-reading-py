@@ -34,20 +34,19 @@ let colorSet = {
   purple: 'rgb(153, 102, 255)',
   grey: 'rgb(201, 203, 207)'
 };
-let emotion = ['yorokobi', 'ikari', 'aware', 'kowa', 'haji', 'suki', 'iya', 'takaburi', 'yasu', 'odoroki']
 let color = Chart.helpers.color;
 var chart = new Chart(ctx, {
     type: 'radar',
     data: {
-      labels: ['喜び', '怒り', '哀しい', '怖い', '恥', '好き', '厭', '昂ぶり', '安らぎ', '驚き'],
+      labels: ['喜び', '好き', '驚き', '怒り', '昂ぶり', '哀しい', '厭', '恥', '怖い', '安らぎ'],
       datasets: [{
         label: '',
         backgroundColor: color(colorSet.blue).alpha(0.5).rgbString(),
         borderColor: colorSet.blue,
         pointBackgroundColor: colorSet.blue,
         data: [ 
-          {{result['yorokobi']}}, {{result['ikari']}}, {{result['aware']}}, {{result['kowa']}}, {{result['haji']}},
-          {{result['suki']}}, {{result['iya']}}, {{result['takaburi']}}, {{result['yasu']}},  {{result['odoroki']}}, 
+          {{result['yorokobi']}}, {{result['suki']}}, {{result['odoroki']}}, {{result['ikari']}}, {{result['takaburi']}},
+          {{result['aware']}}, {{result['iya']}}, {{result['haji']}}, {{result['kowa']}},  {{result['yasu']}}, 
         ]
       }]
     },
