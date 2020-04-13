@@ -44,10 +44,12 @@ var chart = new Chart(ctx, {
         backgroundColor: color(colorSet.blue).alpha(0.5).rgbString(),
         borderColor: colorSet.blue,
         pointBackgroundColor: colorSet.blue,
+        /* eslint-disable */
         data: [ 
           {{result['yorokobi']}}, {{result['suki']}}, {{result['odoroki']}}, {{result['ikari']}}, {{result['takaburi']}},
           {{result['aware']}}, {{result['iya']}}, {{result['haji']}}, {{result['kowa']}},  {{result['yasu']}}, 
         ]
+        /* eslint-enable */
       }]
     },
     options: {
